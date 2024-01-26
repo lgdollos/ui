@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: #f3cdd7;
+      }
+
+      #bento {
+        border: 1em solid #96414b;
+        background: #0e0e0e;
+      }
+
+      .rice {
+        background: #fefefe;
+      }
+
+      .meat {
+        background: #d47561;
+      }
+
+      .egg {
+        background: #f8e38f;
+      }
+
+      .salad {
+        border: 1em solid #c4ec74;
+        background: #f8f0bc;
+      }
+
+      .salad-out {
+        background: #c4ec74;
+      }
+
+      .noodle {
+        background: #7d3620;
+      }
+    </style>
+  </head>
+  <body class="grid place-items-center h-screen">
+    <div id="bento" class="rounded-3xl p-2 w-5/6 h-2/3 shadow-2xl">
+      <div
+        class="flex lg:flex-row justify-center h-full w-full flex-col-reverse"
+      >
+        <div
+          class="flex flex-row lg:flex-col rice basis-1/2 border-black justify-end"
+        >
+          <span class="screen text-xs self-end text-gray-300 p-2"></span>
+        </div>
+
+        <div class="flex basis-1/2 lg:flex-col sm:flex-row flex-col">
+          <div class="flex h-full w-full lg:flex-row flex-col-reverse">
+            <div class="meat basis-1/2"></div>
+            <div class="egg basis-1/2"></div>
+          </div>
+
+          <div class="flex h-full w-full lg:flex-row flex-col-reverse">
+            <div class="salad basis-1/2"></div>
+            <div class="noodle basis-1/2"></div>
+          </div>
+        </div>
+      </div>
+      <span class="text-xs text-[#651324] right-0">resize screen</span>
+    </div>
+
+    <script>
+      let screen_size = document.querySelector(".screen");
+      let viewport = "";
+
+      window.onresize = resize;
+
+      function resize() {
+        width = window.innerWidth;
+        if (width < 640) {
+          viewport = "xs";
+        }
+        if (width >= 640) {
+          viewport = "sm";
+        }
+        if (width >= 768) {
+          viewport = "m";
+        }
+        if (width >= 1024) {
+          viewport = "lg";
+        }
+        if (width >= 1280) {
+          viewport = "xl";
+        }
+        if (width >= 1536) {
+          viewport = "2xl";
+        }
+
+        screen_size.innerHTML = "w: " + width + "px → " + viewport;
+      }
+    </script>
+  </body>
+</html>

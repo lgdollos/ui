@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sublime</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: #4f565e;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .inactive {
+        opacity: 0;
+      }
+
+      .remove-bg {
+        background: #4f565e !important;
+      }
+
+      .active {
+        visibility: initial;
+        color: #c7cad0;
+      }
+
+      .fade-up {
+        animation: fade-up 0.35s ease-in-out 1;
+      }
+
+      @keyframes fade-up {
+        0% {
+          opacity: 0;
+          transform: translateX(-24px) translateY(30px);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateX(-24px) translateY(30px);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(-24px) translateY(0px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="sublime"
+      class="grid place-items-center h-[90vh] drop-shadow-sm mx-[2vw]"
+    >
+      <div class="flex flex-col">
+        <div id="tabs" class="flex flex-row flex-nowrap">
+          <div
+            class="flex flex-row justify-center self-center text-[#DCDDDF] w-5 ml-3 z-10"
+          >
+            <i class="fa-solid fa-caret-left"></i>
+            <i class="fa-solid fa-caret-right"></i>
+          </div>
+
+          <!-- tab-start -->
+          <div class="tab flex flex-row flex-nowrap">
+            <div class="tab-outer-left self-end">
+              <div
+                class="tab-circle-left bg-[#4f565e] rounded-[4px] h-3 w-3 z-30 relative float-right"
+              ></div>
+              <div
+                class="tab-square-left h-2 w-2 bg-[#303841] z-20 absolute ml-2 mt-2"
+              ></div>
+            </div>
+            <div
+              class="tab-inner flex flex-row items-center justify-between bg-[#303841] text-[#ffffff] text-xs p-4 w-[170px] max-w-[170px] h-[32px] rounded-t-[5px]"
+            >
+              <span class="tab-title">click +</span>
+              <div
+                class="circle bg-[#83A982] rounded-lg mr-[-4px] h-2 w-2"
+              ></div>
+            </div>
+
+            <div class="tab-outer-right self-end">
+              <div
+                class="tab-circle-right bg-[#4f565e] rounded-[4px] h-3 w-3 z-30 relative float-left"
+              ></div>
+              <div
+                class="tab-square-right h-2 w-2 bg-[#303841] z-20 absolute mr-2 mt-2"
+              ></div>
+            </div>
+          </div>
+          <!-- tab-end -->
+
+          <div
+            id="add"
+            class="flex flex-row content-center text-[#83888E] text-xl font-bold cursor-default"
+          >
+            <span class="cursor-default">+</span>
+          </div>
+        </div>
+
+        <div
+          class="editor flex flex-col bg-[#303841] text-[#d8dee9] font-['Menlo'] h-[380px] w-[580px] rounded-[3px] py-2 z-40"
+        >
+          <div class="line flex flex-row text-sm items-center">
+            <span
+              class="line-num bg-[#4D5864] w-[45px] h-[15px] self-center mr-2"
+            ></span>
+
+            <span class="cursor text-[#F9AE58] font-bold text-xl">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let tabs = document.getElementById("tabs");
+      let add_btn = document.getElementById("add");
+      add_btn.addEventListener("click", new_tab);
+
+      function new_tab() {
+        edit_prev_tab();
+        create_tab();
+        add_btn.removeEventListener("click", new_tab);
+      }
+
+      function edit_prev_tab() {
+        let outer_left = document.querySelector(".tab-outer-left");
+        let outer_right = document.querySelector(".tab-outer-right");
+        let inner = document.querySelector(".tab-inner");
+        let tab_title = document.querySelector(".tab-title");
+
+        outer_left.classList.add("inactive");
+        outer_right.classList.add("inactive");
+        inner.classList.add("remove-bg");
+        tab_title.classList.add("active");
+      }
+
+      function create_tab() {
+        let new_tab = document.createElement("div");
+        let inner_tab = document.createElement("div");
+        let outer_left = document.createElement("div");
+        let circle_left = document.createElement("div");
+        let square_left = document.createElement("div");
+        let outer_right = document.createElement("div");
+        let circle_right = document.createElement("div");
+        let square_right = document.createElement("div");
+        let circle = document.createElement("div");
+        let text = document.createElement("span");
+
+        new_tab.classList +=
+          " flex flex-row flex-nowrap translate-x-[-24px] fade-up";
+        add_btn.classList.add("translate-x-[-24px]");
+        outer_left.classList.add("self-end");
+        inner_tab.classList +=
+          " flex flex-row items-center justify-between bg-[#303841] text-[#ffffff] text-xs p-4 w-[170px] max-w-[170px] h-[32px]  rounded-t-[5px]";
+        outer_right.classList.add("self-end");
+        square_left.classList +=
+          " h-2 w-2 bg-[#303841] z-20 absolute ml-2 mt-2";
+        circle_left.classList +=
+          " bg-[#4f565e] rounded-[4px] h-3 w-3 z-30 relative float-right";
+        square_right.classList +=
+          " h-2 w-2 bg-[#303841] z-20 absolute mr-2 mt-2";
+        circle_right.classList +=
+          " bg-[#4f565e] rounded-[4px] h-3 w-3 z-30 relative float-left";
+        circle.classList += " bg-[#83A982] rounded-lg mr-[-4px] h-2 w-2";
+        text.innerHTML = "untitled";
+
+        outer_left.appendChild(circle_left);
+        outer_left.appendChild(square_left);
+        outer_right.appendChild(circle_right);
+        outer_right.appendChild(square_right);
+        inner_tab.appendChild(text);
+        inner_tab.appendChild(circle);
+
+        new_tab.appendChild(outer_left);
+        new_tab.appendChild(inner_tab);
+        new_tab.appendChild(outer_right);
+
+        tabs.insertBefore(new_tab, add_btn);
+      }
+    </script>
+  </body>
+</html>

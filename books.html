@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> books</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .fade-in {
+        animation: fade_in 150ms ease-in 1;
+      }
+
+      .fade-out {
+        animation: fade_out 150ms ease-in 1;
+      }
+
+      @keyframes fade_in {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 100;
+        }
+      }
+
+      @keyframes fade_out {
+        0% {
+          opacity: 100;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#F7F1E4]">
+    <div id="books" class="grid place-items-center h-[90vh]">
+      <div class="w-[600px]">
+        <div
+          class="flex text-[#26252390] text-xs font-bold justify-center m-14"
+        >
+          Antifragile — Nassim Nicholas Taleb
+        </div>
+
+        <div
+          class="text-[#262523] font-['IowanOldStyleBT-Roman'] leading-7 selection:bg-[#D3CCBFbb]"
+        >
+          <div
+            class="paragraph mb-5 indent-5 overflow-hidden outline-none w-[600px] text-clip resize-none"
+          >
+            There is a Latin expression festina lente, “make haste slowly”. The
+            Romans were not the only ancients to respect the act of voluntary
+            omission. The Chinese thinker Lao Tzu coined the doctrine of wu-wei,
+            “passive achievement”.
+          </div>
+
+          <div class="paragraph indent-4 w-[600px] whitespace-normal">
+            Few understand that procrastination is our natural defense, letting
+            things take care of themselves and exercise their antifragility; it
+            results from some ecological or naturalistic wisdom, and is not
+            always bad—at an existential level, it is my body rebelling against
+            its entrapment. It is my soul fighting the Procrustean bed of
+            modernity. Granted, in the modern world, my tax return is not going
+            to take care of itself—but by delaying a non-vital visit to a
+            doctor, or deferring the writing of a passage until my body tells me
+            that I am ready for it, I may be using a very potent naturalistic
+            filter. I write only if I feel like it and only on a subject I feel
+            like writing about—and the reader is no fool. So I use
+            procrastination as a message from my inner self and my deep
+            evolutionary past to resist interventionism in my writing. Yet some
+            psychologists and behavioral economists seem to think that
+            procrastination is a disease to be remedied and cured.
+          </div>
+        </div>
+      </div>
+
+      <!-- tooltip -->
+      <div
+        id="tooltip"
+        class="absolute z-30 top-[40px] left-[40px] invisible drop-shadow-md"
+      >
+        <div
+          class="flex flex-col content-center items-center highlight w-[20px]"
+        >
+          <div
+            class="flex flex-row justify-evenly items-center colors w-[100px] h-[32px] bg-[#0E0E0E] border-black rounded-lg"
+          >
+            <div
+              id="mark-yellow"
+              class="circle w-[22px] h-[22px] bg-[#EEDA62] rounded-full cursor-pointer"
+            ></div>
+            <div
+              id="mark-purple"
+              class="circle w-[22px] h-[22px] bg-[#BCABEF] rounded-full cursor-pointer"
+            ></div>
+            <div
+              class="mark-ul flex circle w-[22px] h-[22px] bg-[#C7C0B2] rounded-full justify-center items-center cursor-pointer"
+            >
+              <span
+                class="mark-ul underline decoration-solid decoration-[#D74B40] decoration-2 text-black"
+              >
+                A
+              </span>
+            </div>
+          </div>
+          <div
+            class="triangle w-0 h-0 border-l-[10px] border-l-transparent border-t-[10px] border-t-[#0E0E0E] border-r-[10px] border-r-transparent"
+          ></div>
+        </div>
+      </div>
+      <!-- tooltip-end -->
+    </div>
+    <script>
+      const tooltip = document.querySelector("#tooltip");
+      const mark_yellow = document.querySelector("#mark-yellow");
+      const mark_purple = document.querySelector("#mark-purple");
+      const mark_ul = document.querySelectorAll(".mark-ul");
+
+      let paragraph = document.querySelectorAll(".paragraph");
+      let top_class = "top-[40px]";
+      let left_class = "left-[40px]";
+      let highlighted;
+
+      document.onmouseup = function () {
+        let dims = getDims();
+        if (dims.width > 1) {
+          tooltipOn(dims);
+        } else {
+          tooltip.classList.replace("visible", "invisible");
+        }
+      };
+
+      function getDims() {
+        let rect, mid;
+        let sel = window.getSelection();
+        let range = sel.getRangeAt(0).cloneRange();
+
+        if (sel && sel.rangeCount && range.getBoundingClientRect) {
+          rect = range.getBoundingClientRect();
+          mid = (rect.right - rect.left) / 2;
+          text = sel.toString();
+        }
+
+        return {
+          width: rect.width,
+          height: rect.top,
+          left: rect.left,
+          right: rect.right,
+          mid: mid,
+          text: text,
+        };
+      }
+
+      function tooltipOn(dims) {
+        if (dims.width > 0) {
+          top_new = `top-[${dims.height - 40}px]`;
+          left_new = `left-[${dims.left + dims.mid - 10}px]`;
+
+          tooltip.classList.replace("invisible", "visible");
+          tooltip.classList.replace(top_class, top_new);
+          tooltip.classList.replace(left_class, left_new);
+          tooltip.classList.add("fade-in");
+
+          top_class = top_new;
+          left_class = left_new;
+          highlighted = dims.text;
+
+          setTimeout(() => {
+            tooltip.classList.remove("fade-in");
+          }, 400);
+        }
+      }
+
+      mark_yellow.addEventListener("click", markText);
+      mark_purple.addEventListener("click", markText);
+      mark_ul.forEach((mu) => mu.addEventListener("click", markText));
+
+      function markText(e) {
+        let classes;
+        if (e.target.id == "mark-yellow") {
+          classes = "bg-yellow-200 rounded-sm";
+        }
+        if (e.target.id == "mark-purple") {
+          classes = "bg-purple-200 rounded-sm";
+        }
+        if (e.target.classList.contains("mark-ul")) {
+          classes =
+            "underline decoration-2 decoration-red-500 underline-offset-[5px]";
+        }
+
+        paragraph.forEach((p) => {
+          p.innerHTML = p.innerHTML.replace(
+            highlighted.trim(),
+            `<span class="${classes}">${highlighted.trim()}</span>`
+          );
+        });
+      }
+    </script>
+  </body>
+</html>

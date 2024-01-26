@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>mario</title>
+  </head>
+
+  <style>
+    body {
+      background: #6993f5;
+    }
+
+    #mario {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      margin-top: 120px;
+    }
+
+    #top,
+    #middle,
+    #bottom,
+    #top-in,
+    #mid-in,
+    #bottom-in {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    .mid {
+      width: 200px;
+    }
+
+    .mid-in {
+      width: 150px;
+    }
+
+    #top,
+    #bottom {
+      height: 8px;
+    }
+
+    .side {
+      width: 8px;
+    }
+
+    #main {
+      width: 200px;
+      height: 200px;
+
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    }
+
+    #main:hover {
+      cursor: pointer;
+    }
+
+    #main.full {
+      background: #ee9d4e;
+    }
+
+    .blacked,
+    .corner-in {
+      background: #000000;
+    }
+
+    .browned {
+      background: #b95425;
+    }
+
+    .emptied {
+      background: #8e4c1a;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .corner-in {
+      height: 8px;
+      width: 8px;
+      margin: 8px;
+    }
+
+    #question {
+      height: 150px;
+      width: 150px;
+      font-family: "BigBlue Terminal 437TT";
+      font-size: 180px;
+      color: #b95425;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mark {
+      z-index: 2;
+    }
+
+    .shadow {
+      position: absolute;
+      z-index: 1;
+      color: #000000;
+      margin-right: -25px;
+      margin-bottom: -25px;
+    }
+
+    #coin {
+      z-index: -1;
+      margin-left: -20px;
+      opacity: 0;
+    }
+
+    #coin img {
+      height: 250px;
+      width: 350px;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    .coin-start {
+      opacity: 100;
+      transform: translate3d(0, 150px, 0);
+      transition: all 0.75s ease-in-out;
+    }
+
+    .coin-end {
+      opacity: 0;
+      transform: translate3d(0, -150px, 0);
+    }
+
+    .coin-up {
+      animation: coin 0.75s ease-in-out 1;
+    }
+
+    @keyframes coin {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 150px, 0);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(0, -150px, 0);
+      }
+    }
+  </style>
+  <body>
+    <audio id="audio" src="assets/smb_coin.wav"></audio>
+    <div id="mario">
+      <div id="coin">
+        <img src="assets/coin.png" />
+      </div>
+      <div id="top">
+        <div class="corner"></div>
+        <div class="mid browned"></div>
+        <div class="corner"></div>
+      </div>
+
+      <div id="middle">
+        <div class="side browned"></div>
+
+        <div id="main" class="mid full">
+          <div id="top-in" class="sample">
+            <div class="corner-in"></div>
+            <div class="mid-in"></div>
+            <div class="corner-in"></div>
+          </div>
+
+          <div id="mid-in">
+            <div></div>
+            <div id="question">
+              <span class="mark">?</span>
+              <span class="shadow">?</span>
+            </div>
+            <div></div>
+          </div>
+
+          <div id="bottom-in">
+            <div class="corner-in"></div>
+            <div class="mid-in"></div>
+            <div class="corner-in"></div>
+          </div>
+        </div>
+        <div class="blacked side"></div>
+      </div>
+
+      <div id="bottom" class="">
+        <div class="blacked side corner"></div>
+        <div class="blacked mid"></div>
+        <div class="blacked side corner"></div>
+      </div>
+    </div>
+
+    <script>
+      let main = document.getElementById("main");
+      main.addEventListener("click", clicked);
+
+      function clicked() {
+        document.getElementById("audio").play();
+        main.classList.replace("full", "emptied");
+
+        document.querySelector("#question").innerHTML = "";
+
+        document.querySelectorAll(".browned").forEach(function (b) {
+          b.classList.replace("browned", "blacked");
+        });
+
+        document.querySelectorAll(".corner").forEach(function (c) {
+          c.style.background = "#6993F5";
+        });
+
+        let coin = document.getElementById("coin");
+        coin.classList.add("coin-up");
+
+        main.removeEventListener("click", clicked);
+      }
+    </script>
+  </body>
+</html>

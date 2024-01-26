@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>key</title>
+
+    <style>
+      html,
+      body {
+        background: #abaeb0;
+        height: 100%;
+
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        height: 100px;
+      }
+
+      .key {
+        background: #0b0e11;
+        color: #0b0e11;
+        border-radius: 8px;
+        height: 80px;
+        width: 80px;
+        margin: 10px;
+        font-family: "SF Pro Rounded", "SF Compact Rounded", "Arial Rounded",
+          sans-serif;
+        font-size: 150%;
+        -webkit-font-smoothing: antialiased;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+      }
+
+      .letter {
+        color: #f2f2f2;
+      }
+
+      .glow-key {
+        text-shadow: 0 0 5px #fff;
+      }
+
+      .press {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        margin-top: 30px;
+
+        font-family: sans-serif;
+        color: #797b7d;
+      }
+
+      .press div {
+        display: flex;
+      }
+
+      .left {
+        height: 38px;
+        padding-bottom: 2px;
+      }
+
+      .right {
+        height: 36px;
+        transform: rotate(180deg);
+        padding-bottom: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <!-- js embed here -->
+    </div>
+
+    <div class="press">
+      <div>press</div>
+      <div>
+        <div class="key left letter">◄</div>
+        <div class="key right letter">◄</div>
+      </div>
+    </div>
+
+    <script>
+      let keys = "qwertyuiop[]asdfghjkl;'zxcvbnm,./";
+      let letters = keys;
+      let hidden = "";
+      let content = document.querySelector("#content");
+      let row;
+      let glow_px = 0;
+
+      for (let k of keys) {
+        if ("qaz".includes(k)) {
+          row = document.createElement("div");
+          row.classList += "row";
+          content.append(row);
+        }
+
+        let key = document.createElement("div");
+        key.classList += "key letter";
+        key.innerHTML = k.toUpperCase();
+        key.classList += " glow-key";
+        row.append(key);
+      }
+
+      function press(e) {
+        e = e || window.event || e.key;
+
+        if (e.keyCode == "39") {
+          glow_px += 5;
+          document.querySelectorAll(".glow-key").forEach(function (f) {
+            current = getComputedStyle(f).textShadow;
+            current += `, 0 0 ${glow_px}px #fff`;
+            f.style.textShadow = current;
+          });
+        }
+
+        if (e.keyCode == "37" && glow_px != 5) {
+          document.querySelectorAll(".glow-key").forEach(function (f) {
+            current = getComputedStyle(f).textShadow;
+            current = current.replace(
+              `, rgb(255, 255, 255) 0px 0px ${glow_px}px`,
+              ""
+            );
+            f.style.textShadow = current;
+          });
+          glow_px -= 5;
+        }
+      }
+
+      document.onkeydown = press;
+    </script>
+  </body>
+</html>

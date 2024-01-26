@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>breaking</title>
+
+    <style>
+      html,
+      body,
+      body > div {
+        height: 95%;
+      }
+
+      body {
+        background: rgb(17, 34, 7);
+        background: linear-gradient(
+          133deg,
+          rgba(17, 34, 7, 1) 0%,
+          rgba(21, 29, 3, 1) 100%
+        );
+        color: #fafefb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      body > div {
+        flex-flow: row wrap;
+        align-content: center;
+        width: 400px;
+      }
+
+      div {
+        margin: 1px;
+        display: flex;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-weight: bold;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .box,
+      .nobox {
+        padding: 2px;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        height: 169px;
+        width: 169px;
+      }
+
+      .box {
+        margin: 0px;
+        border: 2px solid #fafefb;
+        /* https://cssgradient.io/ */
+        background: rgb(95, 188, 113);
+        background: linear-gradient(
+          135deg,
+          rgba(95, 188, 113, 1) 0%,
+          rgba(19, 32, 5, 1) 100%
+        );
+      }
+
+      .right,
+      .left,
+      .left .bottom {
+        flex-flow: column nowrap;
+      }
+
+      .left {
+        width: 90%;
+        justify-content: space-between;
+      }
+
+      .mid {
+        flex-flow: column nowrap;
+        font-size: 520%;
+        font-weight: bold;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+      }
+
+      .mid div {
+        max-height: 90%;
+        width: 55%;
+      }
+
+      .bottom :nth-child(1) {
+        font-size: 145%;
+      }
+
+      .top,
+      .bottom,
+      .right {
+        font-size: 85%;
+      }
+
+      .right {
+        align-items: flex-end;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="#content">
+      <div class="box">
+        <div class="left">
+          <div class="top">79.904</div>
+
+          <div class="mid">
+            <div>Br</div>
+          </div>
+
+          <div class="bottom">
+            <div>35</div>
+            <div>2-8-18-7</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div>-1</div>
+          <div>+1</div>
+          <div>+5</div>
+        </div>
+      </div>
+
+      <div class="nobox"></div>
+      <div class="nobox"></div>
+
+      <div class="box">
+        <div class="left">
+          <div class="top">137.33</div>
+
+          <div class="mid">
+            <div>Ba</div>
+          </div>
+
+          <div class="bottom">
+            <div>56</div>
+            <div>2-8-18-7</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div>+2</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

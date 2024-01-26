@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>tg</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+        font-family: "SF Pro Text";
+        display: flex;
+        height: 90%;
+        width: 100%;
+        background-color: #aadcfc;
+      }
+      .sample {
+        border: 1px solid black;
+      }
+
+      #tg {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-content: center;
+
+        margin-left: 35%;
+      }
+
+      .message {
+        background: #fffffd;
+        padding: 0.5em 0.75em;
+        border-radius: 12px;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 0.5em 0;
+
+        cursor: pointer;
+        transform: scale(1);
+        transition: all 0.5s ease;
+      }
+
+      .message:hover {
+        transform: scale(0.9);
+        transition: all 0.8s ease;
+      }
+
+      @keyframes shrink {
+        100% {
+          transform: scale(0.95);
+        }
+      }
+
+      .pop {
+        box-shadow: rgb(0 0 0 / 40%) 0px 20px 80px;
+        animation: pop 500ms ease forwards;
+      }
+
+      @keyframes pop {
+        20% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .hidden {
+        opacity: 0;
+      }
+
+      .message-time {
+        align-self: flex-end;
+        font-size: 0.5em;
+        font-weight: 200;
+        padding-top: 0.4em;
+      }
+
+      .reacts {
+        background: #272630;
+        color: #fffffd;
+        border-radius: 20px;
+        padding: 0.3em 0.8em;
+        width: 50%;
+        display: flex;
+        pointer-events: none;
+      }
+
+      .modal {
+        background: #2a2933;
+        color: #fdfdff;
+        border-radius: 12px;
+        width: 130%;
+        pointer-events: none;
+      }
+
+      .modal div {
+        padding: 0.8em 1em;
+      }
+
+      .copy {
+        border-top: 1px solid #6a7388;
+        border-bottom: 1px solid #6a7388;
+      }
+
+      .reacts div {
+        margin: 0.2em;
+        font-size: 1.2em;
+        width: 0.5em;
+        margin-right: 1em;
+      }
+
+      .modal div {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+      }
+
+      @keyframes spin {
+        0% {
+          opacity: 0.8;
+          transform: scale(0.4) rotate(-120deg);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1) rotate(10deg);
+        }
+
+        80% {
+          opacity: 1;
+          transform: rotate(-10deg);
+        }
+
+        100% {
+          opacity: 1;
+          transform: rotate(0deg);
+        }
+      }
+
+      .spin {
+        animation: spin 0.6s ease-in-out 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tg" class="">
+      <div class="reacts hidden">
+        <div class="emoji">👍</div>
+        <div class="emoji">👎</div>
+      </div>
+      <div class="message">
+        <span class="message-text">lol lmao haha</span>
+        <span class="message-time">4:20 PM</span>
+      </div>
+      <div class="modal hidden">
+        <div>
+          Reply
+          <i class="fa-regular fa-comment-dots"></i>
+        </div>
+        <div class="copy">
+          Copy
+          <i class="fa-regular fa-copy"></i>
+        </div>
+        <div>
+          Edit
+          <i class="fa-regular fa-pen-to-square"></i>
+        </div>
+      </div>
+    </div>
+    <script>
+      let state = "off";
+      let msg = document.querySelector(".message");
+      let msg_text = document.querySelector(".message span");
+      let modal = document.querySelector(".modal");
+      let react = document.querySelector(".reacts");
+      let emoji = document.querySelectorAll(".emoji");
+
+      document.addEventListener("click", (e) => {
+        if ((e.target == msg || e.target == msg_text) && state == "off") {
+          [msg, modal, react].forEach((c) => c.classList.add("pop"));
+          emoji.forEach((j) => j.classList.add("spin"));
+          state = "on";
+        } else if (
+          (e.target != msg || e.target != msg_text) &&
+          state == "off"
+        ) {
+          state = "off";
+        } else {
+          [msg, modal, react].forEach((c) => c.classList.remove("pop"));
+          emoji.forEach((j) => j.classList.remove("spin"));
+          state = "off";
+        }
+      });
+    </script>
+  </body>
+</html>

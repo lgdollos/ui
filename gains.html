@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>gains</title>
+
+    <style>
+      body {
+        background: #ece1df;
+        font-family: sans-serif;
+      }
+
+      tbody tr th:nth-child(1) {
+        text-align: left;
+      }
+
+      tbody tr th:nth-child(3),
+      tr td:nth-child(2),
+      .daily {
+        text-align: right;
+      }
+
+      tbody tr,
+      tfoot tr {
+        border-bottom: 1px solid black;
+      }
+
+      table {
+        border-collapse: collapse;
+        font-size: 60%;
+        opacity: 0.5;
+      }
+
+      tbody {
+        border-top: 8px solid black;
+        border-bottom: 8px solid black;
+      }
+
+      tbody .amt {
+        font-size: 85%;
+        font-weight: bold;
+      }
+
+      .daily {
+        font-size: 6px;
+      }
+
+      tfoot,
+      thead tr {
+        font-size: 95%;
+      }
+
+      tfoot .footnote,
+      .daily {
+        font-size: 7px;
+        border-bottom: 0px;
+      }
+
+      #title {
+        font-weight: bolder;
+        font-size: 200%;
+      }
+
+      #macro {
+        border-top: 4px solid black;
+      }
+
+      #content {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #content div {
+        display: flex;
+        justify-content: center;
+      }
+
+      #gains img {
+        width: 690px;
+      }
+
+      #nutrients {
+        position: absolute;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <div id="gains">
+        <img src="assets/food.png" />
+      </div>
+      <div id="nutrients">
+        <table>
+          <thead>
+            <tr id="title">
+              <td colspan="4">Nutrition Facts</td>
+            </tr>
+            <tr>
+              <td colspan="4">Serving Size 113g (4oz.)</td>
+            </tr>
+            <tr>
+              <td colspan="4">Servings Per Container varies</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td colspan="3" class="amt">Amount Per Serving</td>
+            </tr>
+
+            <tr>
+              <th>Calories</th>
+              <td>120</td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <th class="daily">% Daily Value*</th>
+            </tr>
+
+            <tr id="macro">
+              <th>Total Fat</th>
+              <td>1.5g</td>
+              <th colspan="2">2%</th>
+            </tr>
+            <tr>
+              <th>Cholesterol</th>
+              <td>75mg</td>
+              <th colspan="2">25%</th>
+            </tr>
+            <tr>
+              <th>Sodium</th>
+              <td>70mg</td>
+              <th colspan="2">3%</th>
+            </tr>
+            <tr>
+              <th>Protein</th>
+              <td>27g</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td>Calcium</td>
+              <td colspan="2">8%</td>
+            </tr>
+            <tr>
+              <td>Iron</td>
+              <td colspan="2">2%</td>
+            </tr>
+            <tr rowspan="2" class="footnote">
+              <td colspan="4">*Percent Daily Values are based on</td>
+            </tr>
+            <tr class="footnote">
+              <td colspan="4">a 2,000 calorie diet.</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
